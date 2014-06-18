@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Elements xmlns="http://schemas.microsoft.com/sharepoint/">
+  <ListInstance Title="Products" OnQuickLaunch="TRUE" TemplateType="10000" Url="Lists/Products" Description="My List Instance">
+    <Data>
+      <Rows>
+        <Row>
+          <Field Name="Title">Product 1</Field>
+          <Field Name="ProductDescription">Description for Product 1</Field>
+          <Field Name="Price">$7.99</Field>
+        </Row>
+        <Row>
+          <Field Name="Title">Product 2</Field>
+          <Field Name="ProductDescription">Description for Product 2</Field>
+          <Field Name="Price">$5.99</Field>
+        </Row>
+        <Row>
+          <Field Name="Title">Product 3</Field>
+          <Field Name="ProductDescription">Description for Product 3</Field>
+          <Field Name="Price">$9.99</Field>
+        </Row>
+        <Row>
+          <Field Name="Title">Product 3</Field>
+          <Field Name="ProductDescription">Description for Product 3</Field>
+          <Field Name="Price">$6.99</Field>
+        </Row>
+        <Row>
+          <Field Name="Title">Product 4</Field>
+          <Field Name="ProductDescription">Description for Product 4</Field>
+          <Field Name="Price">$8.99</Field>
+        </Row>
+        <Row>
+          <Field Name="Title">Product 5</Field>
+          <Field Name="ProductDescription">Description for Product 5</Field>
+          <Field Name="Price">$8.99</Field>
+        </Row>
+        <Row>
+          <Field Name="Title">Product 6</Field>
+          <Field Name="ProductDescription">Description for Product 6</Field>
+          <Field Name="Price">$9.99</Field>
+        </Row>
+      </Rows>
+    </Data>
+  </ListInstance>
+</Elements>
