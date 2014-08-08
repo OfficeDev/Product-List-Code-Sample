@@ -27,7 +27,45 @@ namespace SharePointAppSampleWeb.Controllers
 
             return View(products);
         }
-        
+
+        [SharePointContextFilter]
+        public ActionResult Edit(int id)
+        {
+            var spContext = SharePointContextProvider.Current.GetSharePointContext(HttpContext);
+
+            Product product = SharePointService.GetProductDetails(spContext, id);
+            return View(product);
+        }
+
+        [SharePointContextFilter]
+        [HttpPost]
+        public ActionResult Edit(Product product)
+        {
+            var spContext = SharePointContextProvider.Current.GetSharePointContext(HttpContext);
+
+            SharePointService.UpdateProduct(spContext, product);
+            return RedirectToAction("Index", new { SPHostUrl = SharePointContext.GetSPHostUrl(HttpContext.Request).AbsoluteUri });
+        }
+
+        [SharePointContextFilter]
+        public ActionResult Delete(int id)
+        {
+            var spContext = SharePointContextProvider.Current.GetSharePointContext(HttpContext);
+
+            Product product = SharePointService.GetProductDetails(spContext, id);
+            return View(product);
+        }
+
+        [SharePointContextFilter]
+        [HttpPost]
+        public ActionResult Delete(Product product)
+        {
+            var spContext = SharePointContextProvider.Current.GetSharePointContext(HttpContext);
+
+            SharePointService.DeleteProduct(spContext, product);
+            return RedirectToAction("Index", new { SPHostUrl = SharePointContext.GetSPHostUrl(HttpContext.Request).AbsoluteUri });
+        }
+
         [HttpPost]
         [SharePointContextFilter]
         public ActionResult AddProduct(string title,string description,string price)

@@ -26,6 +26,10 @@
                     @foreach (SharePointAppSampleWeb.Models.Product objProduct in Model)
                     {
                         <tr>
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { id = objProduct.Id }) | @Html.ActionLink("Delete", "Delete", new { id = objProduct.Id })
+                            </td>
+
                             <td>@objProduct.Title</td>
                             <td>@objProduct.Description</td>
                             <td>@objProduct.Price</td>
@@ -79,6 +83,6 @@
     </div>
 </div>
 
-@section AppScripts {
+@section Scripts {
     <script type="text/javascript" src="@Url.Content("/Scripts/app.js")"></script>
 }

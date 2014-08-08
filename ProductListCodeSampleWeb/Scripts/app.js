@@ -14,6 +14,7 @@
                     price: $("#productPrice").val(),
                 }).done(function () {
                     $("#myModal").modal('hide');
+                    location.reload();
                 })
                 .fail(function () {
                     alert("Failed to add the new product!");
