@@ -55,6 +55,7 @@ namespace SharePointAppSampleWeb
                             products.Add(
                                 new Product
                                 {
+                                    Id = lstProductItem.Id,
                                     Title = lstProductItem["Title"].ToString(),
                                     Description = lstProductItem["ProductDescription"].ToString(),
                                     Price = lstProductItem["Price"].ToString()
@@ -97,5 +98,86 @@ namespace SharePointAppSampleWeb
 
             return false;
         }
+
+        internal static Product GetProductDetails(SharePointContext spContext, int id)
+        {
+            Product product = new Product();
+            using (var clientContext = spContext.CreateUserClientContextForSPAppWeb())
+            {
+                if (clientContext != null)
+                {
+                    List lstProducts = clientContext.Web.Lists.GetByTitle("Products");
+                    ListItem selectedItem = lstProducts.GetItemById(id);
+                    clientContext.Load(selectedItem);
+
+                    clientContext.ExecuteQuery();
+
+                    if (selectedItem != null)
+                    {
+                        product = new Product
+                        {
+                            Title = selectedItem["Title"] as string,
+                            Description = selectedItem["ProductDescription"] as string,
+                            Price = selectedItem["Price"] as string,
+                        };
+                    }
+                }
+
+            }
+
+            return product;
+        }
+
+        public static bool UpdateProduct(SharePointContext spContext, Product product)
+        {
+
+            using (var clientContext = spContext.CreateUserClientContextForSPAppWeb())
+            {
+                if (clientContext != null)
+                {
+                    try
+                    {
+                        List lstProducts = clientContext.Web.Lists.GetByTitle("Products");
+                        ListItem selectedItem = lstProducts.GetItemById(product.Id);
+
+                        selectedItem["Title"] = product.Title;
+                        selectedItem["ProductDescription"] = product.Description;
+                        selectedItem["Price"] = product.Price;
+                        selectedItem.Update();
+
+                        clientContext.ExecuteQuery();
+                        return true;
+
+                    }
+                    catch (ServerException ex)
+                    {
+                        return false;
+                    }
+
+                }
+            }
+            return false;
+        }
+
+        public static void DeleteProduct(SharePointContext spContext, Product product)
+        {
+
+            using (var clientContext = spContext.CreateUserClientContextForSPAppWeb())
+            {
+                try
+                {
+                    List productsList = clientContext.Web.Lists.GetByTitle("Products");
+                    ListItem itemToDelete = productsList.GetItemById(product.Id);
+                    itemToDelete.DeleteObject();
+
+                    clientContext.ExecuteQuery();
+                }
+                catch (ServerException ex)
+                {
+                    // TODO: Exception Handling
+                }
+            }
+        }
+    
     }
 }
